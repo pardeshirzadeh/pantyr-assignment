@@ -1,8 +1,12 @@
-import express from 'express';
+import 'dotenv/config';
+import App from "./app";
+import validateEnv from "./utils/validations/validateEnv.validation";
+import ProductController from "./resources/product/product.controller";
+import OrderController from './resources/order/order.controller';
 
-const app = express();
-const port = 3000;
 
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`)
-})
+validateEnv();
+
+const app = new App([new ProductController,new OrderController],Number(process.env.PORT));
+
+app.listen();
